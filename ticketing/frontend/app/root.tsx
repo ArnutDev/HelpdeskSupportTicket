@@ -32,6 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
+      {/* ทำ frontend เสร็จเอาไป mergeเข้ากับ backend ก่อน ค่อยไป main */}
       <body>
         {children}
         <ScrollRestoration />
