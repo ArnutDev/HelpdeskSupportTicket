@@ -4,17 +4,17 @@
     <p>{{ msg }}</p>
     <button @click="fetchData">โหลดข้อมูล</button>
 
-    <!-- แสดงสถานะกำลังโหลด -->
-    <div v-if="isLoading">กำลังโหลดข้อมูล...</div>
-
     <!-- ตรวจสอบว่า data มีค่าก่อนแสดงผล -->
-    <div v-if="data">
-      <h1>{{ data.title }}</h1>
-      <p>{{ data.description }}</p>
-      <p>{{ data.contactInformation }}</p>
-      <p>{{ data.createdTimestamp }}</p>
-      <p>{{ data.updatedTimestamp }}</p>
-      <p>status: {{ data.status }}</p>
+    <div v-if="data && data.length > 0">
+      <div v-for="ticket in data" :key="ticket.id">
+        <h2>{{ ticket.title }}</h2>
+        <p>{{ ticket.description }}</p>
+        <p>{{ ticket.contactInformation }}</p>
+        <p>{{ ticket.createdTimestamp }}</p>
+        <p>{{ ticket.updatedTimestamp }}</p>
+        <p>{{ ticket.status || "No status available" }}</p>
+        <!-- ถ้าไม่มี status จะแสดงข้อความนี้ -->
+      </div>
     </div>
     <div v-else>
       <p>ยังไม่มีข้อมูล</p>
@@ -23,29 +23,17 @@
 </template>
   
   <script>
-import axios from "axios";
-
 export default {
   name: "GetData",
-  props: {
-    msg: String,
-  },
   data() {
     return {
       data: null,
-      isLoading: false, // สถานะการโหลดข้อมูล
     };
   },
   methods: {
     async fetchData() {
-      this.isLoading = true; // ตั้งค่าเป็นกำลังโหลด
-      try {
-        this.data = await axios.get("http://localhost:8080/api/tickets");
-      } catch (error) {
-        console.error("Error something wrong:", error);
-      } finally {
-        this.isLoading = false; // หยุดสถานะการโหลดเมื่อเสร็จ
-      }
+      const response = await fetch("http://localhost:8080/api/tickets");
+      this.data = await response.json();
     },
   },
 };

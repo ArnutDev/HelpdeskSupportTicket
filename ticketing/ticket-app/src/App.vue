@@ -1,18 +1,18 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   <GetData msg="Welcome to Vue.js!" />
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import GetData from './components/GetData.vue';
+import GetData from "./components/GetData.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    GetData
-  }
-}
+    GetData,
+  },
+};
 </script>
 
 <style>
