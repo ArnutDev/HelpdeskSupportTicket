@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>hello yahoooooooo</h1>
     <p>{{ msg }}</p>
     <button @click="fetchData">โหลดข้อมูล</button>
 
@@ -17,6 +16,7 @@
         <p>
           <strong>Status</strong>: {{ ticket.status || "No status available" }}
         </p>
+        <button @click="$router.push('/update')">Edit Ticket</button>
         <h1>
           -----------------------------------------------------------------
         </h1>
@@ -28,7 +28,7 @@
   </div>
 </template>
   
-  <script>
+  <script >
 export default {
   name: "GetData",
   data() {
@@ -44,4 +44,6 @@ export default {
   },
 };
 </script>
+
+
   

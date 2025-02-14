@@ -1,11 +1,12 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <img id="ticket-logo" alt="Vue logo" src="./assets/ticket-logo.png" />
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   <!-- <GetData msg="Welcome to Vue.js!" /> -->
    <div>
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/create">Create Ticket</router-link>
+      <button ><router-link class="button-link" to="/">Ticket history</router-link></button>
+      |
+      <button><router-link to="/create">Create ticket</router-link></button>
     </nav>
     <router-view />
   </div>
@@ -32,5 +33,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+img{
+  width: auto;
+  height: 200px;
+}
+#button-link{
+  text-decoration: none;
 }
 </style>

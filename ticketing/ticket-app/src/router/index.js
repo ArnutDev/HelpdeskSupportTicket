@@ -2,13 +2,13 @@ import {
     createRouter,
     createWebHistory
 } from "vue-router";
-import GetData from "../components/GetData.vue";
+import GetTicketDetails from "../components/GetTicketDetails.vue";
 import CreateTicket from "../components/CreateTicket.vue";
 import ViewTicket from "../components/ViewTicket.vue";
 
 const routes = [{
         path: "/",
-        component: GetData
+        component: GetTicketDetails
     },
     {
         path: "/create",

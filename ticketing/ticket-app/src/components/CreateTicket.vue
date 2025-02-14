@@ -8,7 +8,7 @@
             <input v-model="ticket.description" required/>
             <label>Contact Information: </label>
             <input v-model="ticket.contactInformation" required/>
-            <button type="submit">Create Ticket</button>
+            <button type="submit" >Create Ticket</button>
         </form>
         <p v-if="message">{{ message }}</p>
     </div>
