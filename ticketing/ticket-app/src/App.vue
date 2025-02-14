@@ -1,13 +1,10 @@
 <template>
   <div class="ticket-logo">
-  <img alt="Vue logo" src="./assets/ticket-logo.png" />
+    <img alt="Vue logo" src="./assets/ticket-logo.png" />
+    <h1>Helpdesk Support Ticket</h1>
   </div>
    <div>
-    <nav>
-      <button><router-link class="button-link" to="/">Ticket history</router-link></button>
-      |
-      <button><router-link to="/create">Create ticket</router-link></button>
-    </nav>
+    <router-link to="/ticket"><button class="btn-history">Ticket history</button></router-link>
     <router-view />
   </div>
 </template>
@@ -20,7 +17,7 @@ export default {
   name: "App",
   components: {
     // GetData,
-    // CreateTicket,
+    // CreateTicket
   },
 };
 </script>
@@ -39,7 +36,23 @@ export default {
 }
 .ticket-logo img {
   width: auto; 
-  height: 200px; 
+  height: 200px;
 }
-
+.btn-history {
+    background-color: #0D6EFD; 
+    color: white; 
+    border: none;
+    margin: 15px 0 10px 0;
+    padding: 20px;
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px;
+    font-weight: bold;
+}
+.btn-history:hover {
+    background-color: #0056b3; 
+}
+.button-link{
+  text-decoration: none;
+}
 </style>

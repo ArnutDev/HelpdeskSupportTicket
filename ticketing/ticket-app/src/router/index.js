@@ -8,11 +8,11 @@ import ViewTicket from "../components/ViewTicket.vue";
 
 const routes = [{
         path: "/",
-        component: GetTicketDetails
+        component: CreateTicket
     },
     {
-        path: "/create",
-        component: CreateTicket
+        path: "/ticket",
+        component: GetTicketDetails
     },
     {
         path: "/ticket/:id",

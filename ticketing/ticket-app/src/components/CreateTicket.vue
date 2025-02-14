@@ -1,5 +1,5 @@
 <template>
-    <h1 class="text-topic">Create New Ticket</h1>
+    <h2 class="text-topic">Create New Ticket</h2>
     <p class="message" v-if="message">{{ message }}</p>
     <div class="container">
         <form @submit.prevent="submitTicket">
@@ -11,7 +11,6 @@
             <textarea  v-model="ticket.description" required/>
             <button class="btn" type="submit" ><p>Create Ticket</p></button>
         </form>
-        
     </div>
 </template>
 <script>
@@ -84,7 +83,7 @@ h4{
     margin: 20px 0 5px 0;
 }
 .btn {
-    background-color: #007bff; 
+    background-color: #00C851; 
     color: white; 
     border: none; 
     margin: 15px 0 10px 0;
@@ -95,7 +94,7 @@ h4{
 }
 
 .btn:hover {
-    background-color: #0056b3; 
+    background-color: #007E33; 
 }
 .message{
     color: #4BB543;
