@@ -10,14 +10,15 @@ import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig {
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081")); // URL ของ frontend
+        configuration.setAllowedOrigins(Arrays.asList("*")); // เปิดให้ทุก origin เข้าถึงได้
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);  // ทุก path สามารถทำ CORS ได้
         return source;
     }
 }
