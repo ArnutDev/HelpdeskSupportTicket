@@ -1,16 +1,25 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-  <GetData msg="Welcome to Vue.js!" />
+  <!-- <GetData msg="Welcome to Vue.js!" /> -->
+   <div>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/create">Create Ticket</router-link>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import GetData from "./components/GetData.vue";
+// import GetData from "./components/GetData.vue";
+// import CreateTicket from "./components/CreateTicket.vue"
 export default {
   name: "App",
   components: {
-    GetData,
+    // GetData,
+    // CreateTicket,
   },
 };
 </script>
