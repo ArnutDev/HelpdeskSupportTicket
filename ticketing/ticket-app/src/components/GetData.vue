@@ -7,12 +7,17 @@
     <!-- ตรวจสอบว่า data มีค่าก่อนแสดงผล -->
     <div v-if="data && data.length > 0">
       <div v-for="ticket in data" :key="ticket.id">
-        <h2>{{ ticket.title }}</h2>
-        <p>{{ ticket.description }}</p>
-        <p>{{ ticket.contactInformation }}</p>
-        <p>{{ ticket.createdTimestamp }}</p>
-        <p>{{ ticket.updatedTimestamp }}</p>
-        <p>{{ ticket.status || "No status available" }}</p>
+        <p><strong>Title:</strong> {{ ticket.title }}</p>
+        <p><strong>Description</strong>: {{ ticket.description }}</p>
+        <p>
+          <strong>ContactInformation</strong>: {{ ticket.contactInformation }}
+        </p>
+        <p><strong>CreatedTimestamp</strong>: {{ ticket.createdTimestamp }}</p>
+        <p><strong>UpdatedTimestamp</strong>: {{ ticket.updatedTimestamp }}</p>
+        <p>
+          <strong>Status</strong>: {{ ticket.status || "No status available" }}
+        </p>
+        <h1>-----------------------</h1>
         <!-- ถ้าไม่มี status จะแสดงข้อความนี้ -->
       </div>
     </div>
