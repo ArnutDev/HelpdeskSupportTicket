@@ -18,7 +18,9 @@ import CreateTicket from "./components/CreateTicket.vue"
 export default {
   name: "App",
   components: {
+    //user
     CreateTicket,
+    //admin
     // ManageTicket
   },
 };
