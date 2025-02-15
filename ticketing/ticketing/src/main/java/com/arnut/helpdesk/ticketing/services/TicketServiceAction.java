@@ -26,12 +26,9 @@ public class TicketServiceAction {
         Optional<Ticket> ticketOptional = ticketRepository.findById(id);
         if(ticketOptional.isPresent()){
             Ticket ticket = ticketOptional.get();
-            ticket.setTitle(ticketDetails.getTitle());
-            ticket.setDescription(ticketDetails.getDescription());
-            ticket.setContactInformation(ticketDetails.getContactInformation());
             ticket.setUpdatedTimestamp(LocalDateTime.now());
+            System.out.println("title: "+ticket.getTitle()+" description: "+ticket.getDescription()+" contact: "+ticket.getContactInformation());
             ticket.setStatus(Ticket.TicketStatus.ACCEPTED);
-            System.out.println("Status after setting: " + ticket.getStatus());
 //            System.out.println(ticket.getStatus()+" "+ticket.getTitle()+"sadasdada "+ticket.getContactInformation()+" "+ticket.getDescription());//?
             return Optional.of(ticketRepository.save(ticket));//บันทึกลง db
         }
