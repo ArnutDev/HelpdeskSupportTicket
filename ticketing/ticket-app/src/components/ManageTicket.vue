@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-      <div v-else-if="!notFound">
+      <div v-else-if="notFound">
         <p>Sort by {{ status }} > ticket not found </p>
       </div>
     </div>
@@ -42,7 +42,7 @@
 
 <script>
 export default {
-  name: "GetData",
+  name: "ManageTicket",
   data() {
     return {
       data: [],
@@ -57,7 +57,6 @@ export default {
     async fetchData() {
       const response = await fetch("http://localhost:8080/api/tickets");
       this.data = await response.json();
-
       this.notFound = this.data.length === 0;
     },
     async fetchPending(type) {

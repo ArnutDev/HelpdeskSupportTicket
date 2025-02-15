@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  name: "GetData",
+  name: "GetTicketDetails",
   data() {
     return {
       data: "",
