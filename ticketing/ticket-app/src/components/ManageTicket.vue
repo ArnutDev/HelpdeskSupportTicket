@@ -28,8 +28,8 @@
             <p><strong>Status</strong>: {{ ticket.status || "No status available" }}</p>
             <div class="btn-manage">
               <button v-if="status === 'PENDING'" class="btn-action" @click="updateTicketStatus(ticket.id)">ACCEPT</button>
-              <button v-if="status === 'ACCEPTED'" class="btn-action">REJECT</button>
-              <button v-if="status === 'ACCEPTED'" class="btn-action">RESOLVE</button>
+              <button v-if="status === 'ACCEPTED'" class="btn-action" @click="updateTicketStatus(ticket.id)">REJECT</button>
+              <button v-if="status === 'ACCEPTED'" class="btn-action" @click="updateTicketStatus(ticket.id)">RESOLVE</button>
             </div>
           </div>
           
