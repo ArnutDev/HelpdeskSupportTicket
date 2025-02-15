@@ -3,16 +3,16 @@
     <p>{{ msg }}</p>
     <div class="details-box">
       <h1 class="list-topic">Ticket List</h1>
+      <h3>Sort :
+        <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
+        <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
+        <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
+        <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
+        <button class="btn-filter" @click="fetchData">Latest updated</button>
+      </h3>
       <div v-if="data.length > 0">
         <div>
-          <h3>Sort :
-            <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
-            <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
-            <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
-            <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
-            <button class="btn-filter" @click="fetchData">Latest updated</button>
-          </h3>
-          <p>Sort By {{ status }} </p>
+          <p>Sort by {{ status }} </p>
         </div>
         <div v-for="ticket in data" :key="ticket.id">
           <div class="detail">
@@ -30,22 +30,11 @@
               <button v-if="status === 'ACCEPTED'" class="btn-action"
                 @click="updateTicketStatus(ticket.id, 'RESOLVE')">RESOLVE</button>
             </div>
-
           </div>
-
         </div>
       </div>
-      <div v-else-if="notFound">
-        <div>
-          <h3>Sort :
-            <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
-            <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
-            <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
-            <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
-            <button class="btn-filter" @click="fetchData">Latest updated</button>
-          </h3>
-          <p>Sort By {{ status }} > ticket not found </p>
-        </div>
+      <div v-else-if="!notFound">
+        <p>Sort by {{ status }} > ticket not found </p>
       </div>
     </div>
   </div>
@@ -67,7 +56,6 @@ export default {
   methods: {
     async fetchData() {
       const response = await fetch("http://localhost:8080/api/tickets");
-      this.status = "Latest updated";
       this.data = await response.json();
 
       this.notFound = this.data.length === 0;
