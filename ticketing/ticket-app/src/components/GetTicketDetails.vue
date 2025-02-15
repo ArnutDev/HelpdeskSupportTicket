@@ -6,10 +6,10 @@
         <h1 class="list-topic">Ticket History</h1>
         <div>
           <h3>Sort :
-            <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
-            <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
-            <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
-            <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
+            <button class="btn-filter" @click="() => fetchByStatus('PENDING')">PENDING</button>
+            <button class="btn-filter" @click="() => fetchByStatus('ACCEPTED')">ACCEPTED</button>
+            <button class="btn-filter" @click="() => fetchByStatus('RESOLVED')">RESOLVED</button>
+            <button class="btn-filter" @click="() => fetchByStatus('REJECTED')">REJECTED</button>
             <button class="btn-filter" @click="fetchData">Latest updated</button>
           </h3>
           <p>Sort by {{ status }} </p>
@@ -33,10 +33,10 @@
         <h1 class="list-topic">Ticket History</h1>
         <div>
           <h3>Sort :
-            <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
-            <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
-            <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
-            <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
+            <button class="btn-filter" @click="() => fetchByStatus('PENDING')">PENDING</button>
+            <button class="btn-filter" @click="() => fetchByStatus('ACCEPTED')">ACCEPTED</button>
+            <button class="btn-filter" @click="() => fetchByStatus('RESOLVED')">RESOLVED</button>
+            <button class="btn-filter" @click="() => fetchByStatus('REJECTED')">REJECTED</button>
             <button class="btn-filter" @click="fetchData">Latest updated</button>
           </h3>
           <p v-if="notFound">Sort by {{ status }} > ticket not found</p>
@@ -67,7 +67,7 @@ export default {
 
       this.notFound = this.data.length === 0;
     },
-    async fetchPending(type) {
+    async fetchByStatus(type) {
       this.status = type;
       const response = await fetch(`http://localhost:8080/api/tickets/status/${this.status}`);
       this.data = await response.json();

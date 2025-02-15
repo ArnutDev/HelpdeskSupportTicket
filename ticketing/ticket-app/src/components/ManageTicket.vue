@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-      <div v-else-if="notFound">
+      <div v-else>
         <p>Sort by {{ status }} > ticket not found </p>
       </div>
     </div>
@@ -47,7 +47,6 @@ export default {
     return {
       data: [],
       status: "Lastest updated",
-      notFound: false,
     };
   },
   mounted() {
@@ -57,14 +56,12 @@ export default {
     async fetchData() {
       const response = await fetch("http://localhost:8080/api/tickets");
       this.data = await response.json();
-      this.notFound = this.data.length === 0;
     },
     async fetchPending(type) {
       this.status = type;
       const response = await fetch(`http://localhost:8080/api/tickets/status/${this.status}`);
       this.data = await response.json();
 
-      this.notFound = this.data.length === 0;
     },
     async updateTicketStatus(ticketId, type) {
       try {
