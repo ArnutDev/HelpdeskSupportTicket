@@ -22,14 +22,15 @@
             <p><strong>CreatedTimestamp</strong>: {{ ticket.createdTimestamp }}</p>
             <p><strong>UpdatedTimestamp</strong>: {{ ticket.updatedTimestamp }}</p>
             <p><strong>Status</strong>: {{ ticket.status || "No status available" }}</p>
-            <div class="btn-manage">
+            <div class="btn-manage" v-show="status !== 'RESOLVED' && status !== 'REJECTED'">
               <button v-if="status === 'PENDING'" class="btn-action"
-                @click="updateTicketStatus(ticket.id)">ACCEPT</button>
+                @click="updateTicketStatus(ticket.id, 'ACCEPT')">ACCEPT</button>
+              <button v-if="status === 'PENDING' || status === 'ACCEPTED'" class="btn-action"
+                @click="updateTicketStatus(ticket.id, 'REJECT')">REJECT</button>
               <button v-if="status === 'ACCEPTED'" class="btn-action"
-                @click="updateTicketStatus(ticket.id)">REJECT</button>
-              <button v-if="status === 'ACCEPTED'" class="btn-action"
-                @click="updateTicketStatus(ticket.id)">RESOLVE</button>
+                @click="updateTicketStatus(ticket.id, 'RESOLVE')">RESOLVE</button>
             </div>
+
           </div>
 
         </div>
@@ -78,22 +79,49 @@ export default {
 
       this.notFound = this.data.length === 0;
     },
-    async updateTicketStatus(ticketId) {
+    async updateTicketStatus(ticketId, type) {
       try {
-        const response = await fetch(`http://localhost:8080/api/tickets/accept/${ticketId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            status: 'ACCEPTED',
-          }),
-        });
-
-        if (response.ok) {
-          this.data = this.data.filter(ticket => ticket.id !== ticketId);
-          console.log('Ticket status updated to ACCEPTED and removed from the list');
+        if (type == 'ACCEPT') {
+          const response = await fetch(`http://localhost:8080/api/tickets/accept/${ticketId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              status: 'ACCEPTED',
+            }),
+          });
+          if (response.ok) {
+            this.data = this.data.filter(ticket => ticket.id !== ticketId);
+          }
+        } else if (type == 'RESOLVE') {//resolve
+          const response = await fetch(`http://localhost:8080/api/tickets/resolve/${ticketId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              status: 'RESOLVED',
+            }),
+          });
+          if (response.ok) {
+            this.data = this.data.filter(ticket => ticket.id !== ticketId);
+          }
+        } else if (type == 'REJECT') {//reject
+          const response = await fetch(`http://localhost:8080/api/tickets/reject/${ticketId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              status: 'REJECTED',
+            }),
+          });
+          if (response.ok) {
+            this.data = this.data.filter(ticket => ticket.id !== ticketId);
+          }
         }
+
       } catch (error) {
         console.error('Error updating ticket status:', error);
       }
