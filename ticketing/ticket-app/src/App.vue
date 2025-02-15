@@ -6,6 +6,7 @@
   <div>
     <!-- <router-link to="/ticket"><button class="btn-history">Ticket history</button></router-link> -->
     <!-- <router-view /> -->
+    <Login />
     <CreateTicket />
     <GetTicketDetails />
     <ManageTicket />
@@ -13,15 +14,19 @@
 </template>
 
 <script>
+import Login from './components/Login.vue';
 // import ManageTicket from './components/ManageTicket.vue';
-import CreateTicket from "./components/CreateTicket.vue"
+// import CreateTicket from "./components/CreateTicket.vue"
 export default {
   name: "App",
   components: {
+    //login
+    Login,
     //user
-    CreateTicket,
+    // CreateTicket,
     //admin
     // ManageTicket
+
   },
 };
 </script>
