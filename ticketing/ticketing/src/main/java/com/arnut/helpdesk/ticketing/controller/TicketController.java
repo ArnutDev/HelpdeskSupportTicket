@@ -28,12 +28,14 @@ public class TicketController {
         return ticketServiceAction.getTicketsByStatus(status);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/accept/{id}")
     public ResponseEntity<Ticket> updateTicket(@PathVariable Integer id, @RequestBody Ticket ticketDetails) {
         Optional<Ticket> updatedTicket = ticketServiceAction.updateTicket(id, ticketDetails);
         return updatedTicket.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+
 
     @PostMapping("/createTicket")
     public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket){

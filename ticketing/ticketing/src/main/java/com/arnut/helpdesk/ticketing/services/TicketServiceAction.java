@@ -30,8 +30,9 @@ public class TicketServiceAction {
             ticket.setDescription(ticketDetails.getDescription());
             ticket.setContactInformation(ticketDetails.getContactInformation());
             ticket.setUpdatedTimestamp(LocalDateTime.now());
-            ticket.setStatus(Ticket.TicketStatus.PENDING);//????
-            System.out.println(ticket.getStatus()+" "+ticket.getTitle()+"sadasdada "+ticket.getContactInformation()+" "+ticket.getDescription());//?
+            ticket.setStatus(Ticket.TicketStatus.ACCEPTED);
+            System.out.println("Status after setting: " + ticket.getStatus());
+//            System.out.println(ticket.getStatus()+" "+ticket.getTitle()+"sadasdada "+ticket.getContactInformation()+" "+ticket.getDescription());//?
             return Optional.of(ticketRepository.save(ticket));//บันทึกลง db
         }
         return Optional.empty();
