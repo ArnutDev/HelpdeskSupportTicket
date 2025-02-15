@@ -8,17 +8,18 @@
     <!-- <router-view /> -->
      <CreateTicket/>
      <GetTicketDetails/>
+     <ManageTicket/>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-// import GetData from "./components/GetData.vue";
-import CreateTicket from "./components/CreateTicket.vue"
+import ManageTicket from './components/ManageTicket.vue';
+// import CreateTicket from "./components/CreateTicket.vue"
 export default {
   name: "App",
   components: {
-    CreateTicket,
+    // CreateTicket,
+    ManageTicket
   },
 };
 </script>

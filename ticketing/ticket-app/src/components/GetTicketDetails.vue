@@ -1,7 +1,6 @@
 <template>
   <div>
     <p>{{ msg }}</p>
-    <button class="btn-load" @click="fetchData">Ticket history</button>
 
     <!-- ตรวจสอบว่า data มีค่าก่อนแสดงผล -->
     <div class="details-box">
@@ -15,7 +14,6 @@
           <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
           <button class="btn-filter" @click="fetchData">Latest updated</button></h3>
           <p>Sort By {{ status }} </p>
-          <div v-if="notFound">ไม่พบข้อมูล</div>
         </div>
         <div v-for="ticket in data" :key="ticket.id">
           <div class="detail">
@@ -32,7 +30,19 @@
             </div>
         </div>
       </div>
-      
+      <div v-else>
+        <h1 class="list-topic">Ticket History</h1>
+        <div>
+          <h3>Sort : 
+          <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
+          <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
+          <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
+          <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
+          <button class="btn-filter" @click="fetchData">Latest updated</button></h3>
+          
+          <p v-if="notFound">Sort By {{ status }} not found</p>
+        </div>
+      </div>
   </div>
   </div>
 </template>
@@ -44,25 +54,23 @@ export default {
     return {
       data: "",
       status: "Lastest updated",
-      notFound: "",
+      notFound: false,
     };
   },
   methods: {
     async fetchData() {
       const response = await fetch("http://localhost:8080/api/tickets");
       this.status = "Latest update"
-      if(!response.ok){
-        this.status = "Not found"
-      }
       this.data = await response.json();
+
+      this.notFound = this.data.length === 0;
     },
     async fetchPending(type) {
       this.status = type;
       const response = await fetch(`http://localhost:8080/api/tickets/status/${this.status}`);
-      if(!response.ok){
-        this.status = "Not found"
-      }
       this.data = await response.json();
+
+      this.notFound = this.data.length === 0;
     }
   },
 };
@@ -72,21 +80,7 @@ export default {
 .details-box{
   /* background-color: orange; */
 }
-.btn-load {
-    background-color: #0275d8; 
-    color: #dcdcdc; 
-    border: none; 
-    margin: 10px 0 10px 0;
-    padding: 15px;
-    border-radius: 5px; 
-    cursor: pointer; 
-    font-size: 16px;
-    font-weight: bold;
-}
 
-.btn-load:hover {
-    background-color: #204abe; 
-}
 .detail{
   width: auto;
   margin: 0 50px 10px 50px;
