@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import ManageTicket from './components/ManageTicket.vue';
-// import CreateTicket from "./components/CreateTicket.vue"
+// import ManageTicket from './components/ManageTicket.vue';
+import CreateTicket from "./components/CreateTicket.vue"
 export default {
   name: "App",
   components: {
-    // CreateTicket,
-    ManageTicket
+    CreateTicket,
+    // ManageTicket
   },
 };
 </script>
