@@ -4,20 +4,21 @@
     <h1>Helpdesk Support Ticket</h1>
   </div>
    <div>
-    <router-link to="/ticket"><button class="btn-history">Ticket history</button></router-link>
-    <router-view />
+    <!-- <router-link to="/ticket"><button class="btn-history">Ticket history</button></router-link> -->
+    <!-- <router-view /> -->
+     <CreateTicket/>
+     <GetTicketDetails/>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 // import GetData from "./components/GetData.vue";
-// import CreateTicket from "./components/CreateTicket.vue"
+import CreateTicket from "./components/CreateTicket.vue"
 export default {
   name: "App",
   components: {
-    // GetData,
-    // CreateTicket
+    CreateTicket,
   },
 };
 </script>
@@ -30,13 +31,10 @@ export default {
   text-align: center;
   color: white;
   background-color: #212529;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 0;
 }
 .ticket-logo img {
   width: auto; 
-  height: 200px;
+  height: 100px;
 }
 .btn-history {
     background-color: #0D6EFD; 

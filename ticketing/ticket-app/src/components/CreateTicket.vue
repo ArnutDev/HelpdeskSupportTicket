@@ -1,6 +1,6 @@
 <template>
     <h2 class="text-topic">Create New Ticket</h2>
-    <p class="message" v-if="message">{{ message }}</p>
+    <p v-if="message" :class="status">{{ message }}</p>
     <div class="container">
         <form @submit.prevent="submitTicket">
             <h4><label>Title: </label></h4>
@@ -12,40 +12,51 @@
             <button class="btn" type="submit" ><p>Create Ticket</p></button>
         </form>
     </div>
+    <GetTicketDetails/>
 </template>
 <script>
+import GetTicketDetails from './GetTicketDetails.vue';
     export default{
-        data(){
-            return{
-                ticket: {
-                    title: "",
-                    description: "",
-                    contactInformation: "",
-                },
-                message: "",
-            };
-        },
-        methods: {
-            async submitTicket(){
-                try{
-                    const response = await fetch("http://localhost:8080/api/tickets/createTicket", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(this.ticket),
-                });
-                if (response.ok) {
-                    this.message = "Ticket created successfully!";
-                    this.ticket = { title: "", description: "", contactInformation: "" };
-                } else {
-                    this.message = "Failed to create ticket.";
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                this.message = "Error creating ticket.";
-            }
-        },
+        name: "CreateTicket",
+        components: {
+            GetTicketDetails
     },
+    data(){
+                return{
+                    ticket: {
+                        title: "",
+                        description: "",
+                        contactInformation: "",
+                    },
+                    message: "",
+                    status: "",
+                };
+            },
+            methods: {
+                async submitTicket(){
+                    try{
+                        const response = await fetch("http://localhost:8080/api/tickets/createTicket", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(this.ticket),
+                    });
+                    if (response.ok) {
+                        this.message = "Ticket created successfully!";
+                        this.status = "success";
+                        this.ticket = { title: "", description: "", contactInformation: "" };
+                    } else {
+                        this.message = "Failed to create ticket. Try again!";
+                        this.status = "failed";
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    this.message = "Error creating ticket. Try again!";
+                    this.status = "failed";
+                }
+            },
+        },
     };
+        
 </script>
 <style>
 .container{
@@ -96,8 +107,11 @@ h4{
 .btn:hover {
     background-color: #007E33; 
 }
-.message{
+.success{
     color: #4BB543;
+}
+.failed{
+    color: red;
 }
 .text-topic{
     color: #eed202;
