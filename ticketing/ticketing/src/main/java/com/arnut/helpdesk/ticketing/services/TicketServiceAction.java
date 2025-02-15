@@ -22,19 +22,47 @@ public class TicketServiceAction {
         return ticketRepository.save(ticket);
     }
 
-    public Optional<Ticket> updateTicket(Integer id, Ticket ticketDetails){
+    public Optional<Ticket> acceptTicket(Integer id, Ticket ticketDetails){
         Optional<Ticket> ticketOptional = ticketRepository.findById(id);
         if(ticketOptional.isPresent()){
             Ticket ticket = ticketOptional.get();
             ticket.setUpdatedTimestamp(LocalDateTime.now());
             System.out.println("title: "+ticket.getTitle()+" description: "+ticket.getDescription()+" contact: "+ticket.getContactInformation());
             ticket.setStatus(Ticket.TicketStatus.ACCEPTED);
+            System.out.println(ticket.getStatus());
 //            System.out.println(ticket.getStatus()+" "+ticket.getTitle()+"sadasdada "+ticket.getContactInformation()+" "+ticket.getDescription());//?
             return Optional.of(ticketRepository.save(ticket));//บันทึกลง db
         }
         return Optional.empty();
     }
 
+    public Optional<Ticket> resolveTicket(Integer id, Ticket ticketDetails){
+        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
+        if(ticketOptional.isPresent()){
+            Ticket ticket = ticketOptional.get();
+            ticket.setUpdatedTimestamp(LocalDateTime.now());
+            System.out.println("title: "+ticket.getTitle()+" description: "+ticket.getDescription()+" contact: "+ticket.getContactInformation());
+            ticket.setStatus(Ticket.TicketStatus.RESOLVED);
+            System.out.println(ticket.getStatus());
+//            System.out.println(ticket.getStatus()+" "+ticket.getTitle()+"sadasdada "+ticket.getContactInformation()+" "+ticket.getDescription());//?
+            return Optional.of(ticketRepository.save(ticket));//บันทึกลง db
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Ticket> rejectTicket(Integer id, Ticket ticketDetails){
+        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
+        if(ticketOptional.isPresent()){
+            Ticket ticket = ticketOptional.get();
+            ticket.setUpdatedTimestamp(LocalDateTime.now());
+            System.out.println("title: "+ticket.getTitle()+" description: "+ticket.getDescription()+" contact: "+ticket.getContactInformation());
+            ticket.setStatus(Ticket.TicketStatus.REJECTED);
+            System.out.println(ticket.getStatus());
+//            System.out.println(ticket.getStatus()+" "+ticket.getTitle()+"sadasdada "+ticket.getContactInformation()+" "+ticket.getDescription());//?
+            return Optional.of(ticketRepository.save(ticket));//บันทึกลง db
+        }
+        return Optional.empty();
+    }
     public List<Ticket> getTicketsByStatus(Ticket.TicketStatus status){
         return ticketRepository.findByStatus(status);
     }

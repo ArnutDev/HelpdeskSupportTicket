@@ -29,13 +29,25 @@ public class TicketController {
     }
 
     @PutMapping("/accept/{id}")
-    public ResponseEntity<Ticket> updateTicket(@PathVariable Integer id, @RequestBody Ticket ticketDetails) {
-        Optional<Ticket> updatedTicket = ticketServiceAction.updateTicket(id, ticketDetails);
+    public ResponseEntity<Ticket> acceptTicket(@PathVariable Integer id, @RequestBody Ticket ticketDetails) {
+        Optional<Ticket> updatedTicket = ticketServiceAction.acceptTicket(id, ticketDetails);
         return updatedTicket.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PutMapping("/resolve/{id}")
+    public ResponseEntity<Ticket> resolveTicket(@PathVariable Integer id, @RequestBody Ticket ticketDetails) {
+        Optional<Ticket> updatedTicket = ticketServiceAction.resolveTicket(id, ticketDetails);
+        return updatedTicket.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
+    @PutMapping("/reject/{id}")
+    public ResponseEntity<Ticket> rejectTicket(@PathVariable Integer id, @RequestBody Ticket ticketDetails) {
+        Optional<Ticket> updatedTicket = ticketServiceAction.rejectTicket(id, ticketDetails);
+        return updatedTicket.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     @PostMapping("/createTicket")
     public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket){
