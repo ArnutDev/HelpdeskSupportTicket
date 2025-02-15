@@ -27,10 +27,9 @@
             <p><strong>UpdatedTimestamp</strong>: {{ ticket.updatedTimestamp }}</p>
             <p><strong>Status</strong>: {{ ticket.status || "No status available" }}</p>
             <div class="btn-manage">
-              <button v-if="status === 'PENDING'" class="btn-action">ACCEPT</button>
-              <button v-if="status === 'ACCEPTED'" class="btn-action">REJECTED</button>
-              <button v-if="status === 'ACCEPTED'" class="btn-action">RESOLVED</button>
-
+              <button v-if="status === 'PENDING'" class="btn-action" @click="updateTicketStatus(ticket.id)">ACCEPT</button>
+              <button v-if="status === 'ACCEPTED'" class="btn-action">REJECT</button>
+              <button v-if="status === 'ACCEPTED'" class="btn-action">RESOLVE</button>
             </div>
           </div>
           
@@ -78,7 +77,28 @@ export default {
       this.data = await response.json();
 
       this.notFound = this.data.length === 0;
-    }
+    },
+    async updateTicketStatus(ticketId) {
+      try {
+        const response = await fetch(`http://localhost:8080/api/tickets/accept/${ticketId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            status: 'ACCEPTED',
+          }),
+        });
+
+        if (response.ok) {
+          this.data = this.data.filter(ticket => ticket.id !== ticketId);
+          console.log('Ticket status updated to ACCEPTED and removed from the list');
+        }
+      } catch (error) {
+        console.error('Error updating ticket status:', error);
+      }
+    },
+
   },
 };
 </script>
