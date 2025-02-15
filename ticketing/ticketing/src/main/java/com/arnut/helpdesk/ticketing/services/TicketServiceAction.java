@@ -3,6 +3,7 @@ package com.arnut.helpdesk.ticketing.services;
 import com.arnut.helpdesk.ticketing.entity.Ticket;
 import com.arnut.helpdesk.ticketing.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -64,7 +65,7 @@ public class TicketServiceAction {
         return Optional.empty();
     }
     public List<Ticket> getTicketsByStatus(Ticket.TicketStatus status){
-        return ticketRepository.findByStatus(status);
+        return ticketRepository.findByStatus(status, Sort.by(Sort.Order.desc("updatedTimestamp")));
     }
 
     public List<Ticket> getAllTickets(){
