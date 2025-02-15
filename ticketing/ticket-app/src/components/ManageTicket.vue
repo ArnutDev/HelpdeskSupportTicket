@@ -1,13 +1,9 @@
 <template>
   <div>
     <p>{{ msg }}</p>
-    <button class="btn-load" @click="() => fetchPending('PENDING')">
-      Manage Ticket
-    </button>
-
     <div class="details-box">
+      <h1 class="list-topic">Ticket List</h1>
       <div v-if="data.length > 0">
-        <h1 class="list-topic">Ticket List</h1>
         <div>
           <h3>Sort :
             <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
@@ -27,17 +23,18 @@
             <p><strong>UpdatedTimestamp</strong>: {{ ticket.updatedTimestamp }}</p>
             <p><strong>Status</strong>: {{ ticket.status || "No status available" }}</p>
             <div class="btn-manage">
-              <button v-if="status === 'PENDING'" class="btn-action" @click="updateTicketStatus(ticket.id)">ACCEPT</button>
-              <button v-if="status === 'ACCEPTED'" class="btn-action" @click="updateTicketStatus(ticket.id)">REJECT</button>
-              <button v-if="status === 'ACCEPTED'" class="btn-action" @click="updateTicketStatus(ticket.id)">RESOLVE</button>
+              <button v-if="status === 'PENDING'" class="btn-action"
+                @click="updateTicketStatus(ticket.id)">ACCEPT</button>
+              <button v-if="status === 'ACCEPTED'" class="btn-action"
+                @click="updateTicketStatus(ticket.id)">REJECT</button>
+              <button v-if="status === 'ACCEPTED'" class="btn-action"
+                @click="updateTicketStatus(ticket.id)">RESOLVE</button>
             </div>
           </div>
-          
+
         </div>
       </div>
       <div v-else-if="notFound">
-
-        <h1 class="list-topic">Ticket List</h1>
         <div>
           <h3>Sort :
             <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
@@ -46,7 +43,7 @@
             <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
             <button class="btn-filter" @click="fetchData">Latest updated</button>
           </h3>
-          <p>Sort By {{status}} Ticket not found </p>
+          <p>Sort By {{ status }} > ticket not found </p>
         </div>
       </div>
     </div>
@@ -58,15 +55,18 @@ export default {
   name: "GetData",
   data() {
     return {
-      data: [],  
+      data: [],
       status: "Lastest updated",
-      notFound: false, 
+      notFound: false,
     };
+  },
+  mounted() {
+    this.fetchData()
   },
   methods: {
     async fetchData() {
       const response = await fetch("http://localhost:8080/api/tickets");
-      this.status = "Latest update";
+      this.status = "Latest updated";
       this.data = await response.json();
 
       this.notFound = this.data.length === 0;
@@ -103,69 +103,76 @@ export default {
 };
 </script>
 
-  
-  <style>
-  .details-box{
-    /* background-color: orange; */
-  }
-  .btn-load {
-      background-color: #0275d8; 
-      color: #dcdcdc; 
-      border: none; 
-      margin: 10px 0 10px 0;
-      padding: 15px;
-      border-radius: 5px; 
-      cursor: pointer; 
-      font-size: 16px;
-      font-weight: bold;
-  }
-  
-  .btn-load:hover {
-      background-color: #204abe; 
-  }
-  .detail{
-    width: auto;
-    margin: 0 50px 10px 50px;
-    padding: 10px;
-    /* background-color: #204abe; */
-    border: 5px solid #dcdcdc;
-    border-radius: 4px;
-    text-align: start;
-  }
-  .list-topic{
-    margin: 10px 0 10px 0;
-    color:#eed202;
-  }
-  .btn-filter{
-      background-color: #212529;
-      color: #dcdcdc;
-      border: 2px solid #eed202; 
-      margin: 10px 5px 10px 5px;
-      padding: 15px;
-      border-radius: 5px; 
-      cursor: pointer; 
-      font-size: 16px;
-      font-weight: bold;
-  }
-  .btn-filter:hover {
-      background-color: #c49c23; 
-  }
-  .btn-manage{
-    text-align: end;
-  }
-  .btn-action{
-      background-color: #212529;
-      color: #dcdcdc;
-      border: 2px solid #eed202; 
-      margin: 10px 5px 10px 5px;
-      padding: 15px;
-      border-radius: 5px; 
-      cursor: pointer; 
-      font-size: 16px;
-      font-weight: bold;
-  }
-  .btn-action:hover {
-      background-color: #c49c23; 
-  }
-  </style>
-    
+
+<style>
+.details-box {
+  /* background-color: orange; */
+}
+
+.btn-load {
+  background-color: #0275d8;
+  color: #dcdcdc;
+  border: none;
+  margin: 10px 0 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-load:hover {
+  background-color: #204abe;
+}
+
+.detail {
+  width: auto;
+  margin: 0 50px 10px 50px;
+  padding: 10px;
+  /* background-color: #204abe; */
+  border: 5px solid #dcdcdc;
+  border-radius: 4px;
+  text-align: start;
+}
+
+.list-topic {
+  margin: 10px 0 10px 0;
+  color: #eed202;
+}
+
+.btn-filter {
+  background-color: #212529;
+  color: #dcdcdc;
+  border: 2px solid #eed202;
+  margin: 10px 5px 10px 5px;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-filter:hover {
+  background-color: #c49c23;
+}
+
+.btn-manage {
+  text-align: end;
+}
+
+.btn-action {
+  background-color: #212529;
+  color: #dcdcdc;
+  border: 2px solid #eed202;
+  margin: 10px 5px 10px 5px;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-action:hover {
+  background-color: #c49c23;
+}
+</style>

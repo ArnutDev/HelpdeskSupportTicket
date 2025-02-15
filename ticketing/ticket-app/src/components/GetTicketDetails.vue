@@ -1,18 +1,17 @@
 <template>
   <div>
     <p>{{ msg }}</p>
-
-    <!-- ตรวจสอบว่า data มีค่าก่อนแสดงผล -->
     <div class="details-box">
       <div v-if="data && data.length > 0">
         <h1 class="list-topic">Ticket History</h1>
         <div>
-          <h3>Sort : 
-          <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
-          <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
-          <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
-          <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
-          <button class="btn-filter" @click="fetchData">Latest updated</button></h3>
+          <h3>Sort :
+            <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
+            <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
+            <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
+            <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
+            <button class="btn-filter" @click="fetchData">Latest updated</button>
+          </h3>
           <p>Sort By {{ status }} </p>
         </div>
         <div v-for="ticket in data" :key="ticket.id">
@@ -27,27 +26,27 @@
             <p>
               <strong>Status</strong>: {{ ticket.status || "No status available" }}
             </p>
-            </div>
+          </div>
         </div>
       </div>
       <div v-else>
         <h1 class="list-topic">Ticket History</h1>
         <div>
-          <h3>Sort : 
-          <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
-          <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
-          <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
-          <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
-          <button class="btn-filter" @click="fetchData">Latest updated</button></h3>
-          
-          <p v-if="notFound">Sort By {{ status }} not found</p>
+          <h3>Sort :
+            <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
+            <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
+            <button class="btn-filter" @click="() => fetchPending('RESOLVED')">RESOLVED</button>
+            <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
+            <button class="btn-filter" @click="fetchData">Latest updated</button>
+          </h3>
+          <p v-if="notFound">Sort by {{ status }} > ticket not found</p>
         </div>
       </div>
-  </div>
+    </div>
   </div>
 </template>
-  
-  <script >
+
+<script>
 export default {
   name: "GetData",
   data() {
@@ -57,10 +56,13 @@ export default {
       notFound: false,
     };
   },
+  mounted() {
+    this.fetchData();
+  },
   methods: {
     async fetchData() {
       const response = await fetch("http://localhost:8080/api/tickets");
-      this.status = "Latest update"
+      this.status = "Latest updated"
       this.data = await response.json();
 
       this.notFound = this.data.length === 0;
@@ -77,11 +79,11 @@ export default {
 </script>
 
 <style>
-.details-box{
+.details-box {
   /* background-color: orange; */
 }
 
-.detail{
+.detail {
   width: auto;
   margin: 0 50px 10px 50px;
   padding: 10px;
@@ -90,23 +92,25 @@ export default {
   border-radius: 4px;
   text-align: start;
 }
-.list-topic{
+
+.list-topic {
   margin: 10px 0 10px 0;
-  color:#eed202;
+  color: #eed202;
 }
-.btn-filter{
-    background-color: #212529;
-    color: #dcdcdc;
-    border: 2px solid #eed202; 
-    margin: 10px 5px 10px 5px;
-    padding: 15px;
-    border-radius: 5px; 
-    cursor: pointer; 
-    font-size: 16px;
-    font-weight: bold;
+
+.btn-filter {
+  background-color: #212529;
+  color: #dcdcdc;
+  border: 2px solid #eed202;
+  margin: 10px 5px 10px 5px;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
 }
+
 .btn-filter:hover {
-    background-color: #c49c23; 
+  background-color: #c49c23;
 }
 </style>
-  
