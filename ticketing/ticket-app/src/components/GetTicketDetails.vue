@@ -12,7 +12,7 @@
             <button class="btn-filter" @click="() => fetchPending('REJECTED')">REJECTED</button>
             <button class="btn-filter" @click="fetchData">Latest updated</button>
           </h3>
-          <p>Sort By {{ status }} </p>
+          <p>Sort by {{ status }} </p>
         </div>
         <div v-for="ticket in data" :key="ticket.id">
           <div class="detail">
