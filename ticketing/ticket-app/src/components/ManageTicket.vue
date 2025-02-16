@@ -2,7 +2,7 @@
   <div>
     <p>{{ msg }}</p>
     <div class="details-box">
-      <h1 class="list-topic">Ticket List</h1>
+      <h1 class="list-topic">Request for Assistance</h1>
       <h3>Sort :
         <button class="btn-filter" @click="() => fetchPending('PENDING')">PENDING</button>
         <button class="btn-filter" @click="() => fetchPending('ACCEPTED')">ACCEPTED</button>
