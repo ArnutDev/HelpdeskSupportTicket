@@ -1,4 +1,4 @@
-# ระบบจัดการตั๋วช่วยเหลือ (Helpdesk Support Ticket Management)
+# ระบบจัดการตั๋วช่วยเหลือ (Helpdesk Support Ticket Management) | Nipa_Fullstack Assignment-Test
 
 ระบบนี้เป็นระบบจัดการตั๋วช่วยเหลือที่ผู้ใช้สามารถสร้างตั๋วได้และดูประวัติของตั๋วที่สร้างขึ้น ส่วนผู้ดูแลสามารถดูรายการคำขอและจัดการตั๋วได้
 
