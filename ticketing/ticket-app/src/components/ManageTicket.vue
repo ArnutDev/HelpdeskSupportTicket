@@ -145,6 +145,7 @@ export default {
   border: 5px solid #dcdcdc;
   border-radius: 4px;
   text-align: start;
+  overflow-wrap: break-word;
 }
 
 .list-topic {

@@ -73,6 +73,7 @@ export default {
             if (this.isFormVisible) {
                 this.isFormVisible = !this.isFormVisible
             }
+            this.message = ""
         },
     },
 };
