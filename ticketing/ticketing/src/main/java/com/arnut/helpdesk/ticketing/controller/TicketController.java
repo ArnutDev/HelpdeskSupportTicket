@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("api/tickets")
-@CrossOrigin(origins = "*")
+@RestController // คลาสนี้เป็น Controller สำหรับ RESTful API ให้ข้อมูลแบบ JSON
+@RequestMapping("api/tickets") // ระบุ url หลัก
+@CrossOrigin(origins = "*") // อนุญาตให้เข้าถึง API จากทุกโดเมน
 public class TicketController {
-    @Autowired
+    @Autowired // ผูกไว้ใช้ methodในคลาสนี้ได้
     private TicketServiceAction ticketServiceAction;
 
     @GetMapping
@@ -24,7 +24,8 @@ public class TicketController {
     }
 
     @GetMapping("/status/{status}")
-    public List<Ticket> getTicketsByStatus(@PathVariable Ticket.TicketStatus status) {
+    public List<Ticket> getTicketsByStatus(@PathVariable Ticket.TicketStatus status) {// รับพารามิเตอร์สถานะของตั๋วจาก
+                                                                                      // URL
         return ticketServiceAction.getTicketsByStatus(status);
     }
 
@@ -50,11 +51,9 @@ public class TicketController {
     }
 
     @PostMapping("/createTicket")
-    public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket){
+    public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
         Ticket createdTicket = ticketServiceAction.createTicket(ticket);
         return new ResponseEntity<>(createdTicket, HttpStatus.CREATED);
     }
-
-
 
 }

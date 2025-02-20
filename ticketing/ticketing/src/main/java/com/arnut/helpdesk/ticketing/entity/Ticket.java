@@ -4,30 +4,32 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-@Entity
+@Entity // กำหนดให้คลาสนี้เป็น table ใน db
 public class Ticket {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // กำหนดให้ id เป็น Primary Key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
     private int id;
     private String title;
     private String description;
     private String contactInformation;
     private LocalDateTime createdTimestamp;
     private LocalDateTime updatedTimestamp;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // กำหนดให้ enum ถูกเก็บเป็น Stringใน db
     private TicketStatus status;
 
-    public enum TicketStatus{
-        PENDING,//รอดำเนินการ
-        ACCEPTED,//ได้รับแล้ว
-        RESOLVED,//แก้ไขแล้ว
-        REJECTED//ถูกปฏิเสธ
+    public enum TicketStatus {
+        PENDING, // รอดำเนินการ
+        ACCEPTED, // ได้รับแล้ว
+        RESOLVED, // แก้ไขแล้ว
+        REJECTED// ถูกปฏิเสธ
     }
 
-    public Ticket(){
+    public Ticket() {
 
     }
-    public Ticket(int id, String title, String description, String contactInformation, LocalDateTime createdTimestamp, LocalDateTime updatedTimestamp, TicketStatus status) {
+
+    public Ticket(int id, String title, String description, String contactInformation, LocalDateTime createdTimestamp,
+            LocalDateTime updatedTimestamp, TicketStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -93,14 +95,12 @@ public class Ticket {
         this.status = status;
     }
 
-    //test LocalDateTime
-//    public static void main(String[] args) {
-//        Ticket t1 = new Ticket();
-//        t1.setCreatedTimestamp(LocalDateTime.now());
-//        System.out.println(t1.getCreatedTimestamp());
-//        t1.setUpdatedTimestamp(LocalDateTime.now());
-//        System.out.println(t1.getUpdatedTimestamp());
-//    }
+    // test LocalDateTime
+    // public static void main(String[] args) {
+    // Ticket t1 = new Ticket();
+    // t1.setCreatedTimestamp(LocalDateTime.now());
+    // System.out.println(t1.getCreatedTimestamp());
+    // t1.setUpdatedTimestamp(LocalDateTime.now());
+    // System.out.println(t1.getUpdatedTimestamp());
+    // }
 }
-
-
