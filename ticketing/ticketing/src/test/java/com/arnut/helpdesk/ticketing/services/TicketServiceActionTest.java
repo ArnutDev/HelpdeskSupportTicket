@@ -54,8 +54,9 @@ public class TicketServiceActionTest {
         ticket.setContactInformation("user@example.com");
         Ticket createdTicket = new Ticket(1, ticket.getTitle(), ticket.getDescription(), ticket.getContactInformation(),
                 LocalDateTime.now(), LocalDateTime.now(), Ticket.TicketStatus.PENDING);
-
+        // จำลองใช้งาน findById และคืนค่าticket เมื่อมีการเรียกหา id=1
         when(ticketRepository.findById(1)).thenReturn(Optional.of(createdTicket));
+        // จำลองใช้งาน save และคืนค่าticket เมื่อมีการเรียกหา save()
         when(ticketRepository.save(any(Ticket.class))).thenReturn(createdTicket);
 
         Optional<Ticket> result = ticketServiceAction.acceptTicket(1, createdTicket);

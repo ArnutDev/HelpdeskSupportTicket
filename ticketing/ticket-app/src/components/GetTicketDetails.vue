@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     async fetchData() {
-      const response = await fetch("http://localhost:8080/api/tickets");
+      const response = await fetch("http://localhost:8080/api/tickets?ticket");
       this.status = "Latest updated"
       this.data = await response.json();
 
@@ -69,7 +69,8 @@ export default {
     },
     async fetchByStatus(type) {
       this.status = type;
-      const response = await fetch(`http://localhost:8080/api/tickets/status/${this.status}`);
+      this.status = "ACCEPTED";
+      const response = await fetch(`http://localhost:8080/api/tickets?status${this.status}`);
       this.data = await response.json();
 
       this.notFound = this.data.length === 0;

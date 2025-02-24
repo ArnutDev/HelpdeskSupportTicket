@@ -1,9 +1,11 @@
 package com.arnut.helpdesk.ticketing.controller;
 
 import com.arnut.helpdesk.ticketing.entity.Ticket;
+import com.arnut.helpdesk.ticketing.entity.Ticket.TicketStatus;
 import com.arnut.helpdesk.ticketing.services.TicketServiceAction;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +21,27 @@ public class TicketController {
     private TicketServiceAction ticketServiceAction;
 
     @GetMapping
-    public List<Ticket> getAllTickets() {
+    public List<Ticket> getAllTickets(@RequestParam(required = false) String status) {
+        if ("REJECTED".equals(status)) {
+            return ticketServiceAction.getTicketsByStatus(TicketStatus.REJECTED);
+        } else if ("RESOLVED".equals(status)) {
+            return ticketServiceAction.getTicketsByStatus(TicketStatus.RESOLVED);
+        } else if ("PENDING".equals(status)) {
+            return ticketServiceAction.getTicketsByStatus(TicketStatus.PENDING);
+        } else if ("ACCEPTED".equals(status)) {
+            return ticketServiceAction.getTicketsByStatus(TicketStatus.ACCEPTED);
+        }
         return ticketServiceAction.getAllTickets();
     }
 
-    @GetMapping("/status/{status}")
-    public List<Ticket> getTicketsByStatus(@PathVariable Ticket.TicketStatus status) {// รับพารามิเตอร์สถานะของตั๋วจาก
-                                                                                      // URL
-        return ticketServiceAction.getTicketsByStatus(status);
-    }
+    // @GetMapping("/status/{status}")
+    // public List<Ticket> getTicketsByStatus(@PathVariable Ticket.TicketStatus
+    // status) {// รับพารามิเตอร์สถานะของตั๋วจาก
+    // // URL
+    // return ticketServiceAction.getTicketsByStatus(status);
+    // }
 
-    @PutMapping("/accept/{id}")
+    @PutMapping("/accept/{id}") // รับค่า JSON จาก HTTP Request และแปลงเป็น Java Object
     public ResponseEntity<Ticket> acceptTicket(@PathVariable Integer id, @RequestBody Ticket ticketDetails) {
         Optional<Ticket> updatedTicket = ticketServiceAction.acceptTicket(id, ticketDetails);
         return updatedTicket.map(ResponseEntity::ok)
